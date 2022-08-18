@@ -31,7 +31,7 @@ namespace GreyWolf
         private void SyncXp()
         {
             int xp = _service.experienceManager.Xp;
-            int xpGoal = _service.experienceManager.XpRequaired;
+            int xpGoal = _service.experienceManager.XpRequired;
             int level = _service.experienceManager.Level;
             int upgradePoints = _service.experienceManager.UpgradePoints;
 

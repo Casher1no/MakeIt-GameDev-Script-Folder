@@ -8,21 +8,21 @@ namespace GreyWolf
     public class FlopyController : GlobalEnemyController
     {
         [Header("Flopy Stats")]
-        [SerializeField][Range(4,20)] float movementSpeed; //8f
-        [SerializeField][Range(5, 25f)] float viewRadiuss; //15f
+        [SerializeField][Range(4, 20)] float movementSpeed; //8f
+        [SerializeField][Range(5, 25f)] float viewRadius; //15f
 
         [Header("Attack Configuration")]
-        [SerializeField][Range(.5f,3f)] float recoveryTime; //1f
-        [SerializeField][Range(1f,6f)] float playerDisctance; //4f
-        [SerializeField][Range(.05f,1f)] float chargeAttackTime; //.1f
-        [SerializeField][Range(15,30)] float attackSpeed; //20f
-        [SerializeField][Range(50,150)] float acceleration; //100f
-        [SerializeField][Range(10,30)] float accelerationMultiplier; //20f
-        [SerializeField][Range(1f,2f)] float attackRadiuss; //1f
-        [SerializeField][Range(.5f,2f)] float fireTime; //1f
+        [SerializeField][Range(.5f, 3f)] float recoveryTime; //1f
+        [SerializeField][Range(1f, 6f)] float playerDistance; //4f
+        [SerializeField][Range(.05f, 1f)] float chargeAttackTime; //.1f
+        [SerializeField][Range(15, 30)] float attackSpeed; //20f
+        [SerializeField][Range(50, 150)] float acceleration; //100f
+        [SerializeField][Range(10, 30)] float accelerationMultiplier; //20f
+        [SerializeField][Range(1f, 2f)] float attackRadius; //1f
+        [SerializeField][Range(.5f, 2f)] float fireTime; //1f
         // -------------
 
-        protected bool damagedDealed = false;
+        protected bool damagedDeled = false;
         protected bool isTargetSet = false;
         protected bool isAttacking = false;
 
@@ -56,7 +56,7 @@ namespace GreyWolf
             enemy = GetComponent<NavMeshAgent>();
             enemy.speed = movementSpeed;
             viewTrigger = GetComponent<SphereCollider>();
-            viewTrigger.radius = viewRadiuss;
+            viewTrigger.radius = viewRadius;
             fireParticles = GetComponentInChildren<ParticleSystem>();
         }
         private void Update()
@@ -71,7 +71,7 @@ namespace GreyWolf
         {
             if (!isTargetSet)
             {
-                if (other.gameObject.tag == "Player" && isObstacleBetween(player, viewRadiuss))
+                if (other.gameObject.tag == "Player" && isObstacleBetween(player, viewRadius))
                 {
                     FollowsPlayer();
                 }
@@ -90,7 +90,7 @@ namespace GreyWolf
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, viewRadiuss);
+            Gizmos.DrawWireSphere(transform.position, viewRadius);
         }
 
         // Methods ------------------------
@@ -132,7 +132,7 @@ namespace GreyWolf
 
         private void AttackPlayerInRange()
         {
-            if (Vector3.Distance(transform.position, player.transform.position) < playerDisctance)
+            if (Vector3.Distance(transform.position, player.transform.position) < playerDistance)
             {
                 enemy.ResetPath();
                 attackPosition = player.transform.position;
@@ -157,11 +157,11 @@ namespace GreyWolf
         private void AttackPlayer()
         {
             recoveryTimer += Time.deltaTime;
-            if (Vector3.Distance(transform.position, player.transform.position) < attackRadiuss && !damagedDealed)
+            if (Vector3.Distance(transform.position, player.transform.position) < attackRadius && !damagedDeled)
             {
                 Attack();
                 e_Animator.SetTrigger("isAttacking");
-                damagedDealed = true;
+                damagedDeled = true;
             }
         }
 
@@ -172,7 +172,7 @@ namespace GreyWolf
             recoveryTimer = 0f;
             isAttacking = false;
             isTargetSet = false;
-            damagedDealed = false;
+            damagedDeled = false;
         }
 
         private void OnFire()
@@ -185,6 +185,6 @@ namespace GreyWolf
             }
             if (fireTimer >= fireTime) isOnFire = false;
         }
-       
+
     }
 }

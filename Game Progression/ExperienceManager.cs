@@ -15,8 +15,8 @@ namespace GreyWolf
         private int currentLevel = 1;
         public int CurrentLevel { get => currentLevel; }
 
-        private int xpRequaired = 10;
-        public int XpRequaired { get => xpRequaired; }
+        private int xpRequired = 10;
+        public int XpRequired { get => xpRequired; }
 
         private int upgradePoints = 0;
         public int UpgradePoints { get => upgradePoints; }
@@ -28,7 +28,7 @@ namespace GreyWolf
 
         private void Update()
         {
-            if (xp >= xpRequaired)
+            if (xp >= xpRequired)
             {
                 LevelUp();
             }
@@ -37,7 +37,7 @@ namespace GreyWolf
         public void LevelUp()
         {
             currentLevel++;
-            xpRequaired = Mathf.RoundToInt(xpRequaired * xpMultiplierByLevel);
+            xpRequired = Mathf.RoundToInt(xpRequired * xpMultiplierByLevel);
 
             level++;
             upgradePoints++;

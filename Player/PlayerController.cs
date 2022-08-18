@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        _service = FindObjectOfType<ServiceLocator>(); 
+        _service = FindObjectOfType<ServiceLocator>();
     }
 
     private void FixedUpdate() => PlayerMovement();
@@ -238,7 +238,12 @@ public class PlayerController : MonoBehaviour
         var main = shootingParticles.emission;
 
         main.burstCount = arrowShootingCount;
-    } 
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
 
 
 }
