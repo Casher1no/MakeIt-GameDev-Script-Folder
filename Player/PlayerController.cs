@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour
             fireTimer += Time.deltaTime;
         }
         if (fireTimer >= fireTime) isOnFire = false;
+        //TODO Add damage when Player/Enemy is on fire
     }
 
 

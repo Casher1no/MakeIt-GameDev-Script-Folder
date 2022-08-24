@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace GreyWolf
 {
@@ -6,15 +8,20 @@ namespace GreyWolf
     {
         public static LevelManager Instance;
         private int enemyCount = 1;
+        private GameObject[] levelDoors;
 
         public enum doorLocation { Left, Top, Right, Down, Empty }
         public doorLocation d_locations;
         [SerializeField] float spawnOffset = 10f;
 
-
+        void Start()
+        {
+            ScanForDoors();
+        }
         private void Update()
         {
             enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            SyncDoorAccessWithEnemies();
         }
         public int GetEnemyCount()
         {
@@ -82,6 +89,36 @@ namespace GreyWolf
 
 
             player.transform.position = spawnPosition + positionOffset;
+        }
+
+        public void ScanForDoors()
+        {
+            // ! adds all doors from the scene in list
+            levelDoors = GameObject.FindGameObjectsWithTag("Door");
+        }
+
+        public void ClearDoorCache()
+        {
+            // ! Clears all doors from list            
+        }
+
+        public void SyncDoorAccessWithEnemies()
+        {
+            // TODO This creates infinite loop and breaks performance
+            // if (enemyCount == 0)
+            // {
+            //     foreach (GameObject door in levelDoors)
+            //     {
+            //         door.GetComponent<IDoorAccessor>().OpenDoor();
+            //     }
+            // }
+            // else
+            // {
+            //     foreach (GameObject door in levelDoors)
+            //     {
+            //         door.GetComponent<IDoorAccessor>().CloseDoor();
+            //     }
+            // }
         }
     }
 
